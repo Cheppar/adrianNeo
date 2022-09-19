@@ -1,5 +1,6 @@
-# Afrian Neo Project.
-Web app with Map and Metamask integration. 
+# Adrian Neo Project.
+Simple web3 map project.
+web app with Map and Metamask + smart contract integration. 
 Having discuused the project requirements on Upwork.
 I have created a work schedule and variousmilestones to achieve.
 
