@@ -1,0 +1,137 @@
+ 
+            #mapdiv {
+                height:100vh;
+            }
+
+            .col-xs-12, .col-xs-6, .col-xs-4 {
+                padding:3px;
+            }
+
+
+            .text-labels {
+                font-size:16px;
+                font-weight: bold;
+                color:red;
+                background: aqua;
+                text-align: center;
+                display: inline-block;
+                padding: 5pt;
+                border: 3px double darkred;
+                border-radius: 5pt;
+                margin-left: -15pt;
+                margin-top: -8pt;
+            }
+            .run{
+                padding:2px 0;
+            }
+
+            .eagle-labels {
+                font-size:12px;
+                font-weight: bold;
+                color:white;
+                background: black;
+                text-align: center;
+                display: inline-block;
+                padding: 5pt;
+                border: 3px double red;
+                border-radius: 5pt;
+                margin-left: -20pt;
+                margin-top: -32pt;
+            }
+            .top-right {
+                  position: absolute;
+                  top: 20px;
+                  right: 30px;
+                  text-transform: capitalize;
+                /*font-size: 40px;*/
+            }
+            .rounded {
+                 border-radius: 50%;
+                 padding-bottom:10px;
+                }
+
+             button.smallPolygonLink{
+                width:100%;
+                background-color: whitesmoke;
+                border: none;
+                outline: none;
+                text-align: left;
+                padding: 15px 20px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: background-color 0.2s linear;
+                background-color:#fcba03;
+            }
+
+            button.smallPolygonLink::after{
+                content: '\f102';
+                font-family: "fontawesome";
+                font-size: 14px;
+                float: right;
+            }
+
+            button.smallPolygonLink.is-open::after {
+                content:"\f103";
+            }https://github.com/Cheppar
+
+            button.smallPolygonLink:hover{
+                background-color: #c7a036;
+            }
+
+            .smallPolygonLink-content {
+                padding: 0px 0px;
+                border-left: 1px solid whitesmoke;
+                border-right: 1px solid whitesmoke;
+                max-height: 0px;
+                overflow: hidden;
+                transition: max-height 0.2s ease-in-out;
+            }
+
+             .smallPolygonLink-content.active{
+                padding: 0px 0px;
+                border-left: 1px solid whitesmoke;
+                border-right: 1px solid whitesmoke;
+                max-height: 20px;
+                overflow: hidden;
+                transition: max-height 0.2s ease-in-out;
+            }
+
+            button.live{
+                 background-color:#c41d2b;
+                 color: white;
+                 border-radius: 15px;
+                 padding-right:0px 0;
+                 float: right;
+                 margin-top: 10px;
+            }
+
+            .leaflet-popup-content{
+                width: 200px;
+            }
+
+            .css-icon {
+
+}
+
+.animated-icon{
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px white;
+  transition: all 1s 
+}
+
+#side-bar{
+    height: 100px;
+}
+
+.leaflet-control-layers-toggle {
+    width: 1084px;
+    height: 1084px;
+}
+
+@media only screen and (max-width:375px){
+
+
+}
