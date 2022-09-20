@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="flex w-screen h-screen justify-center items-center">
+    <button 
+    id="loginButton"
+    class="rounded-md bg-purple-500 p-2 text-white">Login with Metamask</button>
+</body>
+
+<script>
+    const loginButton =  document.getElementById('loginButton')
+
+    function toggleButton(){
+        if (!window.ethereum) {
+            loginButton.innerText = ' Metamask is not installed'
+            loginButton.classList.remove('bg-purple-500', 'text-white')
+            loginButton.classList.add('bg-gray-500', 'text-gray-300', 'cursor-not-allowed')
+            return false
+        }
+
+        loginButton.addEventListener('click', loginWithMetamask)  
+    }
+
+    function loginWithMetamask(){
+     const accounts =   ethereum.request({ method: 'eth_requestAccounts' });
+     
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        toggleButton();
+    });
+
+    // document.on('ready', () => {
+    //     alert('Jambo');
+    // });
+</script>
+</html>
