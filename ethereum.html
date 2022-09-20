@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
+
 <body class="flex w-screen h-screen justify-center items-center">
     <div class="flex-col space-y-2 justify-center items-center">
         <button 
@@ -16,7 +17,9 @@
 
     
 </body>
+
 <p id='userWallet' class="text-lg text-gray-600"></p>
+
 <script>
 
     window.userWalletAddress = null
@@ -34,8 +37,10 @@
         loginButton.addEventListener('click', loginWithMetamask)  
     }
 
+    // async 
+
     async function loginWithMetamask(){
-     const accounts = await  ethereum.request({ method: 'eth_requestAccounts' })
+     const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
         .catch((e) => {
            console.error(e.message)
            return 

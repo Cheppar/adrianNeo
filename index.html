@@ -54,11 +54,15 @@
     <body>
     <div id="side-bar" class="col-md-3">
 
+        <p id='userWallet' class="text-lg text-gray-600"></p>
+
         <button id="btnLocate" class="btn btn-primary btn-block">Locate</button>
 
         <button 
         id="loginButton"
         class="rounded-md bg-purple-500 p-2 text-white">Login with Metamask</button>
+
+        <p id='userWallet' class="text-lg text-gray-600"></p>
 
         <!-- START SEARCH LOCATION -->
         <div class="input-group col-md-12" style="float: right;">
@@ -673,6 +677,11 @@
             //            
 
             //  ***********  General Functions *********
+
+            $("#loginButton").click(function(){
+                loginWithMetamask();
+            });
+
              $("#btnLocate").click(function(){
                 mymap.locate();
             });
@@ -698,6 +707,38 @@
 
 
             //  ***********  General Functions *********
+
+ window.userWalletAddress = null;
+    const loginButton =  document.getElementById('loginButton');
+    const userWallet =  document.getElementById('userWallet');
+
+    function toggleButton(){
+        if (!window.ethereum) {
+            loginButton.innerText = ' Metamask is not installed'
+            loginButton.classList.remove('bg-purple-500', 'text-white')
+            loginButton.classList.add('bg-gray-500', 'text-gray-300', 'cursor-not-allowed')
+            return false
+        }
+
+        loginButton.addEventListener('click', loginWithMetamask)  
+    }
+
+    async function loginWithMetamask(){
+     const accounts = await  ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+           console.error(e.message)
+           return 
+        })
+        if(!accounts){
+            return
+        }
+        window.userWalletAddress = accounts[0]
+        userWallet.innerText = window.userWalletAddress
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        toggleButton();
+    });
 
             function LatLngToArrayString(ll) {
                 return "[" + ll.lat.toFixed(5) + ", " + ll.lng.toFixed(5) + "]";
@@ -760,6 +801,8 @@
             function stripSpaces(str) {
                 return str.replace(/\s+/g, '');
             }
+
+
         });
 
     </script>

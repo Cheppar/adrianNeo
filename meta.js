@@ -1,6 +1,6 @@
 <script>
 
-    mymap.userWalletAddress = null
+    window.userWalletAddress = null
     const loginButton =  document.getElementById('loginButton')
     const userWallet =  document.getElementById('userWallet')
 
