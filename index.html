@@ -140,8 +140,8 @@
 
             //  ********* Map Initialization ****************
             mymap = L.map('mapdiv',
-                    {center:[ 33.4782656, -111.718955],
-                     zoom:10,
+                    {center:[ 39.82759, -105.04232],
+                     zoom:17,
                      attributionControl:false});
 
             mymap.options.minZoom = 3;
@@ -161,11 +161,12 @@
             // ctlAttribute.addAttribution('Google Maps');
             // ctlAttribute.addAttribution('&copy; <a href="#">Harvest Media Australia</a>');
 
+
             ctlScale = L.control.scale({ position: 'bottomleft', metric: false, maxWidth: 200 }).addTo(mymap);
 
             ctlMouseposition = L.control.mousePosition().addTo(mymap);
 
-            grid = L.grid().addTo(mymap);
+            // grid = L.grid().addTo(mymap);
 
             //   *********** Layer Initialization **********
 
@@ -561,9 +562,16 @@
 
 
            // refreshCars();
+           gridLayers();
 
 
-
+           var lyrBuildings = L.geoJSON.ajax('data/grid.geojson', 
+            {style:
+                {color:'white',
+                fillColor:'green',
+                 weight: 0.7, 
+                 fillOpacity: 0.2}
+            }).addTo(mymap);
 
             // *********  Eagle Functions *****************
             function returnEagleMarker(json, latlng) {
@@ -679,7 +687,21 @@
                 }, 15000);
 
             }
-            //            
+            //   
+
+            function gridLayers(){
+                 $.ajax({
+                        // url: 'https://nakuplan.com/pump/telcyte/telCyte/json.php',
+                        url: 'data/grid.geojson',
+                        type: 'GET',
+                        success: function (response) {
+                         
+                        },
+                        error: function (xhr, status, error) {
+                            alert("ERROR: " + error);
+                        }
+                    });
+            }         
 
             //  ***********  General Functions *********
 
