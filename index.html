@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="src/css/custom.css">
         <link rel="stylesheet" href="src/plugins/leaflet-mapkey/MapkeyIcons.css">
         <link rel="stylesheet" href="src/plugins/leaflet-mapkey/L.Icon.Mapkey.css">
+        <link rel="stylesheet" href="src/plugins/L.Grid.css">
         <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -47,7 +48,8 @@
         <script src="src/spin/dist/spin.min.js" charset="utf-8"></script>
         <script src="src/leaflet.spin.min.js" charset="utf-8"></script>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="meta.js" ></script>
+        <script src="src/plugins/L.Grid.js"></script>
+        
        
     </head>
 
@@ -127,6 +129,7 @@
         var objOverlays;
         var icnCar;
         var icnProjects;
+        var grid ;
         var arProjectIDs = [];
         var arHabitatIDs = [];
         var arEagleIDs = [];
@@ -161,6 +164,8 @@
             ctlScale = L.control.scale({ position: 'bottomleft', metric: false, maxWidth: 200 }).addTo(mymap);
 
             ctlMouseposition = L.control.mousePosition().addTo(mymap);
+
+            grid = L.grid().addTo(mymap);
 
             //   *********** Layer Initialization **********
 
