@@ -11,7 +11,55 @@
 	background-color: white;
 }
 
+.card-file-header {
+    /* background-image: url(../../../../images/badge.png); */
+	background-repeat:no-repeat;
+	display: block;
+  	/* margin-left: -10px; */
+  	margin-right: auto;
+  	width: 100%;
+}
+
 #side-bar{
 	background: #ffffff12;
+	border-radius: 15px;
+	padding: 0px 1px;
+	border: 2px solid rgb(0 0 0 / 5%);
+}
+
+.rounded {
+	border-radius: 11px;
+	padding-bottom:10px;
+   }
+
+.side-bar-img{
+	max-width: 100%;
+    height: auto;
+    width: 100px;
+    margin-left: 40%;
+	margin-right: 50%;
+}
+
+.m-t-md {
+    margin-top: 0px;
+	border-radius: 24px;
+}
+
+.card-body {
+    padding: 18px;
+}
+
+.folder-info {
+    display: block;
+    margin-left: 22px;
+    float: left;
+}
+
+.btn-block {
+    display: inline-block;
+    width: auto;
+}
+.profile-about-list-buttons{
+	display: none;
 }
 

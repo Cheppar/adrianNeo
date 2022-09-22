@@ -127,9 +127,10 @@ input {
     color: rgba(225,235,245,.57);
 }
 
-.card-file-header {
+/* .card-file-header {
     background: #2f3f57;
-}
+
+} */
 
 .alert-primary {
     background-color: #7888fc;

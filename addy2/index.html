@@ -229,6 +229,8 @@ tr:nth-child(even) {
 
 side-bar {
     background: #ffffff00;
+    height: 80%;
+    border-radius: 34px;
   }
 
 
@@ -269,10 +271,12 @@ side-bar {
         <!-- <div class="col-sm-6 col-md-3"> -->
             <div class="card card-file-manager">
               <div class="card-file-header">
-                <i class="fas fa-file-code"></i>
+                
+                <img class="side-bar-img" src="../../../../images/badge.png" alt="">
+
               </div>
               <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">Title</h6>
+                <h5 class="card-subtitle mb-2 text-muted">Title</h5>
                 <p class="card-text">Address</p>
               </div>
             </div>
@@ -284,10 +288,19 @@ side-bar {
                   <div class="folder-icon">
                     <!-- <i class="far fa-folder-open"></i> -->
                   </div>
-                  <div class="folder-info">
-                      <a href="#">Photos</a>
-                      <!-- <span>14 files, 334mb</span> -->
-                  </div>
+        <div class="folder-info payment" id="payment">
+             <ul>       
+            <li class="profile-about-list-buttons"> 
+                <button class="btn btn-block btn-info m-t-md">Ethereum</button> 
+                    <!-- <button class="btn btn-block btn-primary m-t-md">Yaya Masinde</button> -->
+                    <button class="btn btn-block btn-success m-t-md">MPESA</button>
+                    <button class="btn btn-block btn-warning m-t-md">Paypal</button> 
+                    <!-- <button class="btn btn-block btn-success m-t-md">Mpesa</button> -->
+                    
+                </li>
+            </ul> 
+                    <!-- <span>14 files, 334mb</span> -->
+        </div>
               </div>
           </div>
           <!-- </div> -->
@@ -389,11 +402,11 @@ side-bar {
                     {center: [39.82759, -105.04232],
                     zoom:17,
                     minZoom:1, 
-                    attributionControl:true});
+                    attributionControl:false});
 
                  ctlAttribute = L.control.attribution().addTo(mymap);
                 ctlAttribute.addAttribution('OSM');
-                ctlAttribute.addAttribution('&copy; <a href="http://altochange.com">AltoChange Consulting</a>');
+                ctlAttribute.addAttribution('&copy; <a href="http://www.com">AltoChange Consulting</a>');
 
                 mymap.zoomControl.setPosition('bottomright');
 
@@ -711,7 +724,7 @@ side-bar {
                         mouseout: resetDotHighlight
                     });
             
-           lyr.bindTooltip("<h5>"+att.plot_num+"</h5>", { permanent:false, direction:"center",className:"no-bg" }); 
+           lyr.bindTooltip("<img width='500' class='rounded' src='images/badge.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
 
                 }
                 
