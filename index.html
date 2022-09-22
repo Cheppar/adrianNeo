@@ -561,17 +561,12 @@
             lyrMarkerCluster.addTo(mymap);
 
 
-           // refreshCars();
-           gridLayers();
+           //refreshCars();
+           //gridLayers();
+
+           
 
 
-           var lyrBuildings = L.geoJSON.ajax('data/grid.geojson', 
-            {style:
-                {color:'white',
-                fillColor:'green',
-                 weight: 0.7, 
-                 fillOpacity: 0.2}
-            }).addTo(mymap);
 
             // *********  Eagle Functions *****************
             function returnEagleMarker(json, latlng) {
@@ -582,7 +577,7 @@
                 } else {
                     var clrNest = 'black';
                 }
-                return L.marker(latlng, { icon: icnCar });
+                return L.polygon(latlng, { icon: icnCar });
             }
 
 
@@ -614,9 +609,9 @@
                 }
 
                 //var marker = L.marker(new L.LatLng(json.geometry.coordinates[0][1], json.geometry.coordinates[0][0]),{ icon: icnCar });
-                var marker = returnEagleMarker(json, new L.LatLng(json.geometry.coordinates[0][1], json.geometry.coordinates[0][0]));
-                marker.bindPopup(container[0]);
-                lyrMarkerCluster.addLayer(marker);
+                // var marker = returnEagleMarker(json, new L.LatLng(json.geometry.coordinates[0][1], json.geometry.coordinates[0][0]));
+                // marker.bindPopup(container[0]);
+                // lyrMarkerCluster.addLayer(marker);
                 // lyr.bindPopup(container[0]).openPopup().bringToFront().addTo(mymap);
             }
 
@@ -643,15 +638,15 @@
                 setInterval(function () {
                     lyrMarkerCluster.clearLayers();
                     lyrMarkerCluster.bringToFront();
-                    mymap.spin(true);
+                   // mymap.spin(true);
                     if (lyrEagleNests) {
                         lyrEagleNests.remove();
                     }
 
                     $.ajax({
                         // url: 'https://nakuplan.com/pump/telcyte/telCyte/json.php',
-                        url: 'json.php',
-                        type: 'GET',
+                        url: 'data/grid.geojson',
+                        // type: 'GET',
                         success: function (response) {
                             arEagleIDs = [];
                             jsnEagles = JSON.parse(response);
@@ -677,7 +672,7 @@
 
 
 
-                            mymap.spin(false);
+                           // mymap.spin(false);
                         },
                         error: function (xhr, status, error) {
                             alert("ERROR: " + error);
@@ -733,7 +728,10 @@
             });
 
 
-            //  ***********  General Functions *********
+            //  ***********  ethereum and General Functions *********
+
+
+// ************* Ethereum functions ***************
 
  window.userWalletAddress = null;
     const loginButton =  document.getElementById('loginButton');

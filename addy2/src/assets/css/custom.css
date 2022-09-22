@@ -1,0 +1,17 @@
+/* Write your custom CSS here */
+.accordion-body {
+    padding: 2rem 2.25rem;
+}
+
+.accordion-button{
+	width: 200px;
+}
+
+.black-bg{
+	background-color: white;
+}
+
+#side-bar{
+	background: #ffffff12;
+}
+
