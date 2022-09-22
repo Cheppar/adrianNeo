@@ -289,9 +289,9 @@ side-bar {
                     <!-- <i class="far fa-folder-open"></i> -->
                   </div>
         <div class="folder-info payment" id="payment">
-             <ul>       
+             <ul style="margin-top: px;">       
             <li class="profile-about-list-buttons"> 
-                <button class="btn btn-block btn-info m-t-md">Ethereum</button> 
+                <button class="btn btn-block btn-info m-t-md" id="ETH">Ethereum</button> 
                     <!-- <button class="btn btn-block btn-primary m-t-md">Yaya Masinde</button> -->
                     <button class="btn btn-block btn-success m-t-md">MPESA</button>
                     <button class="btn btn-block btn-warning m-t-md">Paypal</button> 
@@ -311,8 +311,42 @@ side-bar {
                   <!-- <i class="far fa-folder-open"></i> -->
                 </div>
                 <div class="folder-info">
-                    <a href="#">Space Location</a>
-                    <!-- <span>14 files, 334mb</span> -->
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <!-- <th scope="col">#</th> -->
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <!-- <th scope="row">1</th> -->
+                            <td colspan="3">Mark</td>
+                            <!-- <td>Otto</td> -->
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <!-- <th scope="row">2</th> -->
+                            <td colspan="3">Jacob</td>
+                            <!-- <td>Thornton</td> -->
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <!-- <th scope="row">2</th> -->
+                            <td colspan="3">Jacob</td>
+                            <!-- <td>Thornton</td> -->
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <!-- <th scope="row">3</th> -->
+                            <td colspan="3">Larry the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </table>
                 </div>
             </div>
         </div>
@@ -815,6 +849,10 @@ side-bar {
             });
 
             $("#loginButton").click(function(){
+                loginWithMetamask();
+            });
+
+            $("#ETH").click(function(){
                 loginWithMetamask();
             });
 
