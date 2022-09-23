@@ -25,7 +25,7 @@
         <link href="src/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="src/assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
         <link href="src/assets/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
-        <link href="src/assets/plugins/apexcharts/apexcharts.css" rel="stylesheet">
+        <!-- <link href="src/assets/plugins/apexcharts/apexcharts.css" rel="stylesheet"> -->
 
       
         <!-- Circl ci Theme Styles -->
@@ -35,7 +35,7 @@
 
 
 
-        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
         <script src="src/leaflet-src.js"></script>
         <script src="src/jquery-3.2.0.min.js"></script>
         <script src="src/plugins/L.Control.MousePosition.js"></script>
@@ -54,6 +54,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnEl2RxBw5w0u4WZsuxuPXe0BryUtPQrk" async defer></script>
         <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
         <script src="src/dist/leaflet.customsearchbox.min.js"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=GBP" data-sdk-integration-source="button-factory"></script>
 
         <!-- Circl ci JS -->
         <script src="src/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
@@ -64,6 +65,8 @@
         <!-- <script src="src/assets/plugins/apexcharts/apexcharts.min.js"></script> -->
         <script src="src/assets/js/main.min.js"></script>
         <script src="src/assets/js/pages/dashboard.js"></script>
+
+        <script src="src/domtraverse.js"></script>
 
 <!--    ***************  Begin Leaflet.Draw-->
 
@@ -233,6 +236,8 @@ side-bar {
     border-radius: 34px;
   }
 
+  
+
 
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
@@ -257,6 +262,7 @@ side-bar {
     </head>
     <body>
 
+        
         
         <div id="side-bar" class="col-md-2   scroll ">
 
@@ -293,10 +299,11 @@ side-bar {
             <li class="profile-about-list-buttons"> 
                 <button class="btn btn-block btn-info m-t-md" id="ETH">Ethereum</button> 
                     <!-- <button class="btn btn-block btn-primary m-t-md">Yaya Masinde</button> -->
-                    <button class="btn btn-block btn-success m-t-md">MPESA</button>
-                    <button class="btn btn-block btn-warning m-t-md">Paypal</button> 
-                    <!-- <button class="btn btn-block btn-success m-t-md">Mpesa</button> -->
+                    <button class="btn btn-block btn-success m-t-md" type="submit" name="make_payment" id="mpesa">MPESA</button>
+                    <button class="btn btn-block btn-warning m-t-md" id="paypal" >Paypal</button> 
                     
+                    <!-- <button class="btn btn-block btn-success m-t-md">Mpesa</button> -->
+                   
                 </li>
             </ul> 
                     <!-- <span>14 files, 334mb</span> -->
@@ -311,42 +318,7 @@ side-bar {
                   <!-- <i class="far fa-folder-open"></i> -->
                 </div>
                 <div class="folder-info">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <!-- <th scope="col">#</th> -->
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Handle</th>
-                            <th scope="col">Twitter</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <!-- <th scope="row">1</th> -->
-                            <td colspan="3">Mark</td>
-                            <!-- <td>Otto</td> -->
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <!-- <th scope="row">2</th> -->
-                            <td colspan="3">Jacob</td>
-                            <!-- <td>Thornton</td> -->
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <!-- <th scope="row">2</th> -->
-                            <td colspan="3">Jacob</td>
-                            <!-- <td>Thornton</td> -->
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <!-- <th scope="row">3</th> -->
-                            <td colspan="3">Larry the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div id="paypal-button-container"></div>
                 </div>
             </div>
         </div>
@@ -358,6 +330,7 @@ side-bar {
                 </div>
                 <div class="folder-info">
                     <a href="#">Space Location</a>
+                   <div id="paypal-button-container"> </div>
                     <!-- <span>14 files, 334mb</span> -->
                 </div>
             </div>
@@ -386,9 +359,48 @@ side-bar {
         
 
 
-        <div id="mapdiv" class="col-md-12">
-         <!-- <button id="btnLocate" class="btn btn-primary m-b-xs">Locate</button> -->
+        <div id="mapdiv" class="col-md-12"></div> 
 
+        <div id="dlgModal" class="modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content ">
+
+                  <div class="modal-header ">
+                    
+                        <!-- <p class="card-description" style="float: left;">Please Enable Device Service</p> -->
+
+               
+
+                    <div class="card-body paps" action="./index.php" method="POST">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+                        <h5 class="card-title">Pay with Mpesa</h5>
+                        <p class="card-description">Mpesa users in Kenya <code>&lt;Kenya&gt;</code> and <code>&lt;Uganda&gt;</code>.</p>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Amount</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="amount" placeholder="Enter Amount">
+                               
+                        </div>
+                          <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" name="phone" placeholder="0700-000-000">
+                          </div>
+
+                          <button type="submit" name="submit" value="submit" class="btn btn-primary m-b-xs">Purchase Land</button>
+                    </div>
+
+
+                  </div>
+                  <!-- <div class="modal-body">
+                      Woohoo, you're reading this text in a modal!
+                  </div> -->
+                  <div class="modal-footer">
+                    <button class="btn btn-block btn-warning m-t-md para" id="btnLocate" >Enable Location</button>
+                  </div>
+                </div>
+                
+              </div>
+        </div>
+    
 
         </div>
         <script>
@@ -429,6 +441,8 @@ side-bar {
             var arRaptorIDs  = [];
 
             $(document).ready(function(){
+
+                // $("#dlgModal").show();
 
                 //  ********* Map Initialization ****************
 
@@ -734,13 +748,17 @@ side-bar {
                 function processLanduse (json, lyr){
                 var att = json.properties; 
 
+                
+
                 lyr.on('click', function (e){
-                    lyr.bindPopup("<h5>"+att.id+"</h5>",
+                    lyr.bindPopup("<img width='100' class='rounded' src='images/nft.png' alt='avatar'>",
                         {
                    permanent:true,
-                   direction:"center",
+                   direction:"left",
                    className:"no-bg"
                         }).openPopup().addTo(mymap); 
+
+                        //lyr.bindTooltip("<img width='200' class='rounded' src='images/nft.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
                     ctlSidebar.show();
                     if (lyr){
                         if(lyrSearch){
@@ -758,7 +776,7 @@ side-bar {
                         mouseout: resetDotHighlight
                     });
             
-           lyr.bindTooltip("<img width='500' class='rounded' src='images/badge.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
+          // lyr.bindTooltip("<img width='200' class='rounded' src='images/nft.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
 
                 }
                 
@@ -840,6 +858,13 @@ side-bar {
 
             $("#btnLocate").click(function(){
                 mymap.locate();
+                $(".para").show();
+                $(".paps").hide();
+                setTimeout(function() {$('#dlgModal').hide();}, 4000);
+            });
+
+            $("#paypal").click(function(){
+                
             });
 
            $(document).keyup(function(e) {
@@ -856,12 +881,23 @@ side-bar {
                 loginWithMetamask();
             });
 
-
-            mymap.on('keypress', function (e) {
-                if (e.original.Event.key == "l") {
-                    mymap.locate();
-                }
+            $("#mpesa").click(function(){
+                $("#dlgModal").show();
+                $(".paps").show();
+                $(".para").hide();
             });
+
+            $(".btn-close").click(function(){
+                $("#dlgModal").hide();
+            });
+
+       
+
+            // mymap.on('keypress', function (e) {
+            //     if (e.original.Event.key == "l") {
+            //         mymap.locate();
+            //     }
+            // });
 
             mymap.on('locationfound', function (e) {
                 console.log(e);
@@ -908,6 +944,48 @@ side-bar {
     window.addEventListener('DOMContentLoaded', (event) => {
         toggleButton();
     });
+
+    // ++++++++ Paypal Functions
+    function payMe(){
+        var container = $('<div>');
+            container.on('click', '#paypal', function initPayPalButton(){
+                paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"description":"Template","amount":{"currency_code":"USD","value":1}}]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            
+            // Full available details
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+            // Show a success message within this page, e.g.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+            // Or go to another URL:  actions.redirect('thank_you.html');
+            
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+            });
+    }
 
             
 

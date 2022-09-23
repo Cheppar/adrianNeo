@@ -1,0 +1,676 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Wingecarribbe NSW</title>
+        <link rel="stylesheet" href="src/leaflet.css">
+        <link rel="stylesheet" href="src/css/bootstrap.css">
+        <link rel="stylesheet" href="src/plugins/L.Control.MousePosition.css">
+        <link rel="stylesheet" href="src/plugins/L.Control.Sidebar.css">
+        <link rel="stylesheet" href="src/plugins/Leaflet.PolylineMeasure.css">
+        <link rel="stylesheet" href="src/plugins/easy-button.css">
+        <link rel="stylesheet" href="src/css/font-awesome.min.css">
+        <link rel="stylesheet" href="src/plugins/leaflet.awesome-markers.css">
+        <link rel="stylesheet" href="src/plugins/MarkerCluster.css">
+        <link rel="stylesheet" href="src/plugins/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="src/plugins/leaflet-legend.css">
+        <link rel="stylesheet" href="src/jquery-ui.min.css">
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+            integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+            crossorigin=""
+        />
+
+        <script src="src/leaflet.js"></script>
+        <script src="src/jquery-3.3.1.min.js"></script>
+        <script src="src/plugins/L.Control.MousePosition.js"></script>
+        <script src="src/plugins/L.Control.Sidebar.js"></script>
+        <script src="src/plugins/Leaflet.PolylineMeasure.js"></script>
+        <script src="src/plugins/easy-button.js"></script>
+        <script src="src/plugins/leaflet-providers.js"></script>
+        <script src="src/plugins/leaflet.ajax.min.js"></script>
+        <script src="src/plugins/leaflet.awesome-markers.min.js"></script>
+        <script src="src/plugins/leaflet.markercluster.js"></script>
+        <script src="src/plugins/leaflet-legend.js"></script>
+        <script src="src/jquery-ui.min.js"></script>
+        <script src="src/turf.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnEl2RxBw5w0u4WZsuxuPXe0BryUtPQrk" async defer></script>
+        <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
+        <script src="src/spin/dist/spin.min.js" charset="utf-8"></script>
+        <script src="src/leaflet.spin.min.js" charset="utf-8"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+
+        <style>
+            #mapdiv {
+                height:100vh;
+            }
+
+            .col-xs-12, .col-xs-6, .col-xs-4 {
+                padding:3px;
+            }
+
+
+            .text-labels {
+                font-size:16px;
+                font-weight: bold;
+                color:red;
+                background: aqua;
+                text-align: center;
+                display: inline-block;
+                padding: 5pt;
+                border: 3px double darkred;
+                border-radius: 5pt;
+                margin-left: -15pt;
+                margin-top: -8pt;
+            }
+            .run{
+                padding:2px 0;
+            }
+
+            .eagle-labels {
+                font-size:12px;
+                font-weight: bold;
+                color:white;
+                background: black;
+                text-align: center;
+                display: inline-block;
+                padding: 5pt;
+                border: 3px double red;
+                border-radius: 5pt;
+                margin-left: -20pt;
+                margin-top: -32pt;
+            }
+            .top-right {
+                  position: absolute;
+                  top: 20px;
+                  right: 30px;
+                /*font-size: 40px;*/
+            }
+            .rounded {
+                 border-radius: 50%;
+                 padding-bottom:10px;
+                }
+
+             button.smallPolygonLink{
+                width:100%;
+                background-color: whitesmoke;
+                border: none;
+                outline: none;
+                text-align: left;
+                padding: 15px 20px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: background-color 0.2s linear;
+                background-color:#fcba03;
+            }
+
+            button.smallPolygonLink::after{
+                content: '\f102';
+                font-family: "fontawesome";
+                font-size: 14px;
+                float: right;
+            }
+
+            button.smallPolygonLink.is-open::after {
+                content:"\f103";
+            }
+
+            button.smallPolygonLink:hover{
+                background-color: #c7a036;
+            }
+
+            .smallPolygonLink-content {
+                padding: 0px 0px;
+                border-left: 1px solid whitesmoke;
+                border-right: 1px solid whitesmoke;
+                max-height: 0px;
+                overflow: hidden;
+                transition: max-height 0.2s ease-in-out;
+            }
+
+             .smallPolygonLink-content.active{
+                padding: 0px 0px;
+                border-left: 1px solid whitesmoke;
+                border-right: 1px solid whitesmoke;
+                max-height: 20px;
+                overflow: hidden;
+                transition: max-height 0.2s ease-in-out;
+            }
+
+            button.live{
+                 background-color:#c41d2b;
+                 color: white;
+                 border-radius: 15px;
+                 padding-right:0px 0;
+                 float: right;
+                 margin-top: 10px;
+            }
+            
+
+        </style>
+    </head>
+    <body>
+
+        <div id="smart-button-container">
+      <div style="text-align: center;">
+        <div id="paypal-button-container"></div>
+      </div>
+    </div>
+
+       <div id="side-bar" class="col-md-3">
+
+<div id="legend">
+                <div id="lgndClientLinears">
+                    <h4 class="text-center">
+                        Map Legend<i id="btnLinearProjects"></i>
+                    </h4>
+                    <div id="lgndLinearProjectsDetail">
+                        <svg height="525" width="100%">
+
+                            <line x1="10" y1="40" x2="40" y2="40" style="stroke: black; stroke-width: 4" />
+                            <text  x="60" y="45" style="font-family: sans-serif; font-size: 16px">
+                                Boundary
+                            </text>
+
+                            <rect x="10" y="55" width="30" height="20" style=" fill:#D79F9F;  fill-opacity:0.9;"/>
+                            <text x="60" y="70" style="font-family: sans-serif; font-size: 16px;">Calcarosols</text>
+
+                            <rect x="10" y="85" width="30" height="20" style=" fill:#FDD380;  fill-opacity:0.9;"/>
+                            <text x="60" y="100" style="font-family: sans-serif; font-size: 16px;">Chromosols</text>
+
+                            <rect x="10" y="110" width="30" height="20" style=" fill:#9FA9D7;  fill-opacity:0.9;"/>
+                            <text x="60" y="125" style="font-family: sans-serif; font-size: 16px;">Dermosols</text>
+
+                            <rect x="10" y="140" width="30" height="20" style=" fill:#CE6667;  fill-opacity:0.9;"/>
+                            <text x="60" y="155" style="font-family: sans-serif; font-size: 16px;">Ferrosols</text>
+
+                            <rect x="10" y="170" width="30" height="20" style=" fill:#FCBF31;  fill-opacity:0.9;"/>
+                            <text x="60" y="185" style="font-family: sans-serif; font-size: 16px;">Kandosols</text>
+
+                            <rect x="10" y="200" width="30" height="20" style=" fill:yellow;  fill-opacity:0.9;"/>
+                            <text x="60" y="215" style="font-family: sans-serif; font-size: 16px;">Kurosols</text>
+
+                            <rect x="10" y="230" width="30" height="20" style=" fill:#A59376;  fill-opacity:0.9;"/>
+                            <text x="60" y="245" style="font-family: sans-serif; font-size: 16px;">Kurosols - Natric</text>
+
+                            <rect x="10" y="260" width="30" height="20" style=" fill:#72A746;  fill-opacity:0.9;"/>
+                            <text x="60" y="275" style="font-family: sans-serif; font-size: 16px;">Organosols</text>
+
+                            <rect x="10" y="290" width="30" height="20" style=" fill:#B5876E;  fill-opacity:0.9;"/>
+                            <text x="60" y="305" style="font-family: sans-serif; font-size: 16px;">Rudosols</text>
+
+                            <rect x="10" y="320" width="30" height="20" style=" fill:#B4D895; fill-opacity:0.9;"/>
+                            <text x="60" y="335" style="font-family: sans-serif; font-size: 16px;">Rudosols - Alluvial</text>
+
+                            <rect x="10" y="350" width="30" height="20" style=" fill:#CECE66;  fill-opacity:0.9;"/>
+                            <text x="60" y="365" style="font-family: sans-serif; font-size: 16px;">Rudosols and Tenosols</text>
+
+                            <rect x="10" y="380" width="30" height="20" style=" fill:#F5A37B; fill-opacity:0.9;"/>
+                            <text x="60" y="395" style="font-family: sans-serif; font-size: 16px;">Sodosols</text>
+
+                             <rect x="10" y="410" width="30" height="20" style=" fill:#CEA979; fill-opacity:0.9;"/>
+                            <text x="60" y="425" style="font-family: sans-serif; font-size: 16px;">Tenosols</text>
+
+                            <rect x="10" y="440" width="30" height="20" style=" fill:#B5D69F; fill-opacity:0.9;"/>
+                            <text x="60" y="455" style="font-family: sans-serif; font-size: 16px;">Tenosols Alluvial</text>
+
+                            <rect x="10" y="470" width="30" height="20" style=" fill:#B3B3B3; fill-opacity:0.9;"/>
+                            <text x="60" y="485" style="font-family: sans-serif; font-size: 16px;">Not Assessed</text>
+
+                            <rect x="10" y="500" width="30" height="20" style=" fill:#BEE8FF; fill-opacity:0.9;"/>
+                            <text x="60" y="515" style="font-family: sans-serif; font-size: 16px;">Water</text>
+                             </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div id="mapdiv" class="col-md-12"></div>
+        <script>
+            var mymap;
+            var lyrOSM;
+            var lyrWatercolor;
+            var lyrTopo;
+            var lyrImagery;
+            var lyrOutdoors;
+            var lyrEagleNests;
+            var lyrPagleNests;
+            var lyrBagleNests;
+            var lyrRaptorNests;
+            var lyrClientLines;
+            var lyrSectorLines;
+            var lyrClientLinesBuffer;
+            var lyrBUOWL;
+            var lyrSectors;
+            var lyrBUOWLbuffer;
+            var jsnBUOWLbuffer;
+            var lyrGBH;
+            var lyrSearch;
+            var lyrMarkerCluster;
+            var mrkCurrentLocation;
+            var fgpDrawnItems;
+            var ctlAttribute;
+            var ctlScale;
+            var ctlMouseposition;
+            var ctlMeasure;
+            var ctlEasybutton;
+            var ctlSidebar;
+            var ctlLayers;
+            var ctlStyle;
+            var ctlLegend;
+            var objBasemaps;
+            var objOverlays;
+            var arProjectIDs = [];
+            var arHabitatIDs = [];
+            var arEagleIDs = [];
+            var arRaptorIDs = [];
+
+            $(document).ready(function(){
+
+ //  ********* Map Initialization ****************
+                mymap = L.map('mapdiv',
+                    {center:[ -34.4981,150.30299],
+                     zoom:9,
+                     attributionControl:false});
+
+                mymap.options.minZoom = 9;
+                mymap.options.maxZoom = 22;
+
+                ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
+
+                ctlEasybutton = L.easyButton('glyphicon-transfer', function(){
+                   ctlSidebar.toggle();
+                }).addTo(mymap);
+
+                // ctlAttribute = L.control.attribution().addTo(mymap);
+                // ctlAttribute.addAttribution('Google Maps');
+                // ctlAttribute.addAttribution('&copy; <a href="#">Harvest Media Australia</a>');
+
+                ctlScale = L.control.scale({position:'bottomleft', metric:false, maxWidth:200}).addTo(mymap);
+
+                ctlMouseposition = L.control.mousePosition().addTo(mymap);
+
+                //   *********** Layer Initialization **********
+
+
+                // lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
+                var googleSat = L.gridLayer.googleMutant({
+                maxZoom: 24,
+                type: "roadmap",
+                styles: [
+        {
+        "featureType": "administrative","elementType": "labels.text.fill","stylers": [{"color": "#444444" }]},{"featureType": "landscape","elementType": "all", "stylers": [{"color": "#f2f2f2"}]},{"featureType": "poi","elementType": "all","stylers": [{"visibility": "off" }]},{"featureType": "road","elementType": "all","stylers": [{"saturation": -100},{ "lightness": 45}]},{ "featureType": "road.highway","elementType": "all","stylers": [{"visibility": "simplified"}]},{"featureType": "road.highway", "elementType": "labels.text", "stylers": [{"visibility": "off"}]},{"featureType": "road.highway","elementType": "labels.text.fill", "stylers": [{"visibility": "off"}]},{ "featureType": "road.highway", "elementType": "labels.text.stroke","stylers": [{ "visibility": "off"
+            },{"saturation": "-9"}]},{ "featureType": "road.highway","elementType": "labels.icon","stylers": [{ "visibility": "off" }] },{"featureType": "road.arterial","elementType": "labels.icon","stylers": [ { "visibility": "off" }]}, {"featureType": "transit","elementType": "all", "stylers": [{"visibility": "off"}]},{ "featureType": "water", "elementType": "all","stylers": [{ "color": "#46bcec" }, {"visibility": "on" }]}]
+            });
+                mymap.addLayer(googleSat);
+
+                //******* loading our database **********
+
+
+                refreshDist();
+                refreshSectorLines();
+                refreshEagles();
+
+                // ********* Setup Layer Control  ***************
+
+                objBasemaps = {
+                    'Open Street Maps': lyrOSM,
+                    Imagery: lyrImagery,
+                };
+
+                 objOverlays = {};
+
+                ctlLayers = L.control.layers(objOverlays).addTo(mymap);
+
+                 mymap.on('zoomend', function(e) {
+                    if (mymap.getZoom() <= 10){
+                        // mymap.addLayer(lyrEagleNests);
+                        // mymap.addLayer(lyrSectors);
+                        // mymap.addLayer(lyrClientLines);
+                        lyrEagleNests.bringToFront();
+                    }else{
+
+                    }
+                    if(mymap.getZoom() >= 10.5){
+                        //  mymap.addLayer(lyrClientLines);
+                        // mymap.addLayer(lyrSectors);
+
+                    }else{
+                       // mymap.addLayer(lyrClientLines);
+                    }
+                });
+
+
+
+        //***************************************************************
+        // ************ Client Linears **********
+           function processClientLinears(json, lyr) {
+                var att = json.properties;
+             //lyr.bindPopup("<h4>Boundary: "+att.nsw_lga__3+"</h4>");
+             arProjectIDs.push(att.nsw_lga__3.toString());
+            }
+
+            function refreshDist() {
+
+                    $.ajax({
+                        url: 'data/nsw.geojson',
+                        success: function (response) {
+                            jsnLinears = JSON.parse(response);
+                            if (lyrClientLines) {
+                                lyrClientLines.remove();
+                                lyrClientLinesBuffer.remove();
+                            }
+                            lyrClientLines = L.geoJSON(jsnLinears, {
+                                color: 'black',
+                                dashArray: '5,3',
+                                fillOpacity: 0,
+                                opacity: 0.5,
+                                onEachFeature: processClientLinears,
+                            }).addTo(mymap);
+                        },
+
+                    });
+                }
+
+            //  ***********  Soil Profiles Functions *********
+
+         function styleClientLinears(json) {
+                var att = json.properties;
+                switch (att.asc_order) {
+                    case 'Anthroposols':
+                        return {color:'#F7B7C6'};
+                        break;
+                    case 'Calcarosols':
+                        return {color:'#D79F9F'};
+                        break;
+                    case 'Chromosols':
+                        return {color:'#FDD380'};
+                        break;
+                    case 'Dermosols':
+                        return {color:'#9FA9D7'};
+                        break;
+                    case 'Ferrosols':
+                        return {color:'#CE6667'};
+                        break;
+                    case 'Hydrosols':
+                        return {color:'#5D8CA1'};
+                        break;
+                    case 'Kandosols':
+                        return {color:'#FCBF31'};
+                        break;
+                    case 'Kurosols':
+                        return {color:'#D7C29F'};
+                        break;
+                    case 'Kurosols - Natric':
+                        return {color:'#A59376'};
+                        break;
+                    case 'Organosols':
+                        return {color:'#72A746'};
+                        break;
+                    case 'Podosols':
+                        return {color:'#FFFF73'};
+                        break;
+                     case 'Rudosols':
+                        return {color:'#B5876E'};
+                        break;
+                    case 'Rudosols - Alluvial':
+                        return {color:'#B4D895'};
+                        break;
+                    case 'Rudosols and Tenosols':
+                        return {color:'#CECE66'};
+                        break;
+                    case 'Sodosols':
+                        return {color:'#F5A37B'};
+                        break;
+                     case 'Tenosols':
+                        return {color:'#CEA979'};
+                        break;
+                    case 'Tenosols Alluvial':
+                        return {color:'#B5D69F'};
+                        break;
+                     case 'Vertosols':
+                        return {color:'#828282'};
+                        break;
+                     case 'Not Assessed':
+                        return {color:'#B3B3B3'};
+                        break;
+                    case 'Water':
+                        return {color:'#BEE8FF'};
+                        break;
+                    default:
+                        return
+                }
+            }
+
+            function processSoilmarker(json,lyr){
+                var att = json.properties;
+                lyr.bindTooltip("<h4>Soil: "+att.asc_order+"</h4>").addTo(mymap).openPopup();
+            }
+            function refreshSectorLines(){
+                mymap.spin(true);
+                $.ajax({url:'data/soilcheru.geojson',
+                    data: {tbl:'', flds:'ASC_order, ASC_code'},
+                    type: 'GET',
+                    success: function(response){
+                        arEagleIDs=[];
+                        jsnSector = JSON.parse(response);
+                        if(lyrSectors){
+                            ctlLayers.addLayer(lyrSectors);
+                            lyrSectors.remove();
+                        }
+                        lyrSectors = L.geoJSON(jsnSector,
+                        {
+                        fillOpacity: 0.4,
+                        weight: 0.5,
+                    onEachFeature:processSoilmarker,
+                    pointToLayer:returnEagleMarker,
+                    style:styleClientLinears,
+                    filter:filterEagle});
+
+                    arEagleIDs.sort(function(a,b){return a-b});
+                    $("#txtFindEagle").autocomplete({
+                        source:arEagleIDs
+                    });
+                        lyrMarkerCluster = L.markerClusterGroup();
+                        lyrMarkerCluster.clearLayers();
+                        lyrMarkerCluster.addLayer(lyrSectors);
+                        ctlLayers.addOverlay(lyrSectors, "Soil Profiles");
+                        mymap.spin(false);
+
+                    },
+                    error: function(xhr, status, error){
+                        alert("ERROR: "+error);
+                    }
+                });
+            }
+
+
+
+            // *********  Eagle Functions *****************
+            function returnEagleMarker(json, latlng){
+                var att = json.properties;
+                if (att.type=='Recording') {
+                    var clrNest = 'deeppink';
+                } else {
+                    var clrNest = 'black';
+                }
+                arEagleIDs.push(att.type.toString());
+                return L.circle(latlng, {radius:100, color:clrNest,fillColor:'chartreuse', fillOpacity:0.5});
+            }
+
+              function processPcodemarker(json,lyr){
+                var container = $('<div />');
+                container.on('click', '.smallPolygonLink', function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+        },
+
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"description":"Template","amount":{"currency_code":"USD","value":1}}]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            
+            // Full available details
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+            // Show a success message within this page, e.g.
+            const element = document.getElementById('paypal-button-container');
+            element.innerHTML = '';
+            element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+            // Or go to another URL:  actions.redirect('thank_you.html');
+            
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
+    });
+
+
+
+            var att = json.properties;
+                if (att.type=='Live Stream') {
+                    container.html("<img width='100' class='rounded' src='data/hamish.jpg' alt='avatar'> <h2 class='top-right'>"+att.title+"</h2> <br> <button class='smallPolygonLink'>Media</button> <div class='smallPolygonLink-content'>"+att.mp3+"</div><h5>Date </h5>"+att.date+"<br><h5>Location</h5>"+att.location+"<br> <h5>Observation</h5>"+att.observation);
+                 } else {
+                    container.html("<img width='100' class='rounded' src='data/hamish.jpg' alt='avatar'> <h2 class='top-right'>"+att.title+"</h2> <br> <button class='smallPolygonLink'>Media</button> <div class='smallPolygonLink-content'>"+att.mp3+"</div> <button class='live'>Live Stream</button><h5>Date </h5>"+att.date+"<br><h5>Location</h5>"+att.location+"<br> <h5>Observation</h5>"+att.observation);
+                     }
+                lyr.bindPopup(container[0]).openPopup().bringToFront().addTo(mymap);
+            }
+            function processBaglemarker(json,lyr){
+                var att = json.properties;
+                lyr.bindTooltip("<h4>Post Code: "+att.field_1+"</h4>").openPopup();
+            }
+
+            function filterEagle(json) {
+                var att=json.properties;
+                var optFilter = $("input[name=fltEagle]:checked").val();
+                if (optFilter=='ALL') {
+                    return true;
+                } else {
+                    return (att.status==optFilter);
+                }
+            }
+             function refreshEagles(){
+                $.ajax({url:'data/hamish.geojson.tmp',
+                    data: {tbl:'hamish', flds:'observation, mp3_url, date'},
+                    type: 'GET',
+                    success: function(response){
+                        arEagleIDs=[];
+                        jsnEagles = JSON.parse(response);
+                        if(lyrEagleNests){
+                            ctlLayers.removeLayer(lyrEagleNests);
+                            ctlLayers.removeLayer(lyrMarkerCluster);
+                            lyrEagleNests.remove();
+                        }
+                        lyrEagleNests = L.geoJSON(jsnEagles,
+                        { onEachFeature:processPcodemarker, pointToLayer:returnEagleMarker, filter:filterEagle});
+
+                    arEagleIDs.sort(function(a,b){return a-b});
+                    $("#txtFindEagle").autocomplete({
+                        source:arEagleIDs
+                    });
+                    lyrMarkerCluster = L.markerClusterGroup();
+                        lyrMarkerCluster.clearLayers();
+                        lyrMarkerCluster.addLayer(lyrEagleNests);
+
+                        lyrMarkerCluster.addTo(mymap);
+                        //ctlLayers.addOverlay(lyrMarkerCluster, "Markers");
+                    },
+                    error: function(xhr, status, error){
+                        alert("ERROR: "+error);
+                    }
+                });
+            }
+
+
+
+            //  ***********  General Functions *********
+                $("btnLocate").click(function(){
+                    mymap.locate();
+                });
+
+            //  ***********  General Functions *********
+
+            function LatLngToArrayString(ll) {
+                return "["+ll.lat.toFixed(5)+", "+ll.lng.toFixed(5)+"]";
+            }
+            function returnLayerByAttribute(lyr,att,val) {
+                var arLayers = lyr.getLayers();
+                for (i=0;i<arLayers.length-1;i++) {
+                    var ftrVal = arLayers[i].feature.properties[att];
+                    if (ftrVal==val) {
+                        return arLayers[i];
+                    }
+                }
+                return false;
+            }
+
+            function returnLayersByAttribute(lyr,att,val) {
+                var arLayers = lyr.getLayers();
+                var arMatches = [];
+                for (i=0;i<arLayers.length-1;i++) {
+                    var ftrVal = arLayers[i].feature.properties[att];
+                    if (ftrVal==val) {
+                        arMatches.push(arLayers[i]);
+                    }
+                }
+                if (arMatches.length) {
+                    return arMatches;
+                } else {
+                    return false;
+                }
+            }
+
+            function testLayerAttribute(ar, val, att, fg, err, btn) {
+                if (ar.indexOf(val)<0) {
+                    $(fg).addClass("has-error");
+                    $(err).html("**** "+att+" NOT FOUND ****");
+                    $(btn).attr("disabled", true);
+                } else {
+                    $(fg).removeClass("has-error");
+                    $(err).html("");
+                    $(btn).attr("disabled", false);
+                }
+            }
+
+            function returnLength(arLL) {
+                var total=0;
+                for (var i=1;i<arLL.length;i++) {
+                    total = total + arLL[i-1].distanceTo(arLL[i]);
+                }
+                return total;
+            }
+
+            function returnMultiLength(arArLL) {
+                var total=0;
+                for (var i=0; i<arArLL.length;i++) {
+                    total = total + returnLength(arArLL[i]);
+                }
+                return total;
+            }
+
+            function stripSpaces(str) {
+                return str.replace(/\s+/g, '');
+            }
+        });
+
+
+         </script>
+    </body>
+</html>
