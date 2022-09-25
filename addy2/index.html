@@ -54,7 +54,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnEl2RxBw5w0u4WZsuxuPXe0BryUtPQrk" async defer></script>
         <script src="https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js"></script>
         <script src="src/dist/leaflet.customsearchbox.min.js"></script>
-        <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=GBP" data-sdk-integration-source="button-factory"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
 
         <!-- Circl ci JS -->
         <script src="src/assets/plugins/jquery/jquery-3.4.1.min.js"></script>
@@ -273,9 +273,70 @@ side-bar {
         id="loginButton"
         class="rounded-md bg-purple-500 p-2 text-white">Login with Metamask</button> -->
 
+        <div class="card folder" style="margin-top: 60px;">
+            <div class="card-body">
+                <div class="card-body">
+                    <h3 class="card-title">My Wallets</h3>
+                    <div class="transactions-list">
+                      <div class="tr-item">
+                        <div class="tr-company-name">
+                          <div class="tr-icon tr-card-icon tr-card-bg-primary text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-thumbs-up"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                          </div>
+                          <div class="tr-text">
+                            <h4>Facebook</h4>
+                            <!-- <p>02 March</p> -->
+                          </div>
+                        </div>
+                        <div class="tr-rate">
+                          <p><span class="text-success">ETH Acc</span></p>
+                        </div>
+                      </div>
+                    </div>     
+                </div>
+               
+            </div>
+        </div>
+
+
+        <div class="card folder">
+            <div class="card-body">
+                <div class="folder-icon">
+                  <!-- <i class="far fa-folder-open"></i> -->
+                </div>
+                <div class="folder-info">
+                    <!-- <a href="#">Space Location</a> -->
+
+                    <div class="card-body">
+                        
+                        <h5 class="card-title parcel">Parcel Info</h5>
+                        <p class="card-text">  View parcel details, current owner and price. All transactions are smart contract. </p>
+                        <div class="tr-item">
+                            <div class="tr-company-name">
+                              <div class="tr-icon tr-card-icon tr-card-bg-primary text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                              </div>
+                              <div class="tr-text">
+                                <h4>Owner</h4>
+                                <!-- <p>02 March</p> -->
+                              </div>
+                            </div>
+                            <!-- <div class="tr-rate">
+                              <p><span class="text-success">ETH Acc</span></p>
+                            </div> -->
+                          </div>
+                        <button class="btn btn-block btn-info m-t-md" id="ETH">Claim Parcel</button> 
+                      </div>
+                  
+                    <!-- <span>14 files, 334mb</span> -->
+                </div>
+            </div>
+        </div>
+
+       
 
         <!-- <div class="col-sm-6 col-md-3"> -->
-            <div class="card card-file-manager">
+            <!-- <div class="card card-file-manager">
               <div class="card-file-header">
                 
                 <img class="side-bar-img" src="../../../../images/badge.png" alt="">
@@ -285,56 +346,31 @@ side-bar {
                 <h5 class="card-subtitle mb-2 text-muted">Title</h5>
                 <p class="card-text">Address</p>
               </div>
-            </div>
+            </div> -->
           <!-- </div> -->
 
           <!-- <div class="col-4"> -->
-            <div class="card folder">
+            <!-- <div class="card folder">
               <div class="card-body">
                   <div class="folder-icon">
-                    <!-- <i class="far fa-folder-open"></i> -->
+                   
                   </div>
         <div class="folder-info payment" id="payment">
              <ul style="margin-top: px;">       
             <li class="profile-about-list-buttons"> 
                 <button class="btn btn-block btn-info m-t-md" id="ETH">Ethereum</button> 
-                    <!-- <button class="btn btn-block btn-primary m-t-md">Yaya Masinde</button> -->
                     <button class="btn btn-block btn-success m-t-md" type="submit" name="make_payment" id="mpesa">MPESA</button>
                     <button class="btn btn-block btn-warning m-t-md" id="paypal" >Paypal</button> 
-                    
-                    <!-- <button class="btn btn-block btn-success m-t-md">Mpesa</button> -->
-                   
+                                       
                 </li>
             </ul> 
-                    <!-- <span>14 files, 334mb</span> -->
-        </div>
+                     <span>14 files, 334mb</span> -->
+        <!-- </div>
               </div>
-          </div>
+          </div>  -->
           <!-- </div> -->
 
-          <div class="card folder">
-            <div class="card-body">
-                <div class="folder-icon">
-                  <!-- <i class="far fa-folder-open"></i> -->
-                </div>
-                <div class="folder-info">
-                    <div id="paypal-button-container"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card folder">
-            <div class="card-body">
-                <div class="folder-icon">
-                  <!-- <i class="far fa-folder-open"></i> -->
-                </div>
-                <div class="folder-info">
-                    <a href="#">Space Location</a>
-                   <div id="paypal-button-container"> </div>
-                    <!-- <span>14 files, 334mb</span> -->
-                </div>
-            </div>
-        </div>
+      
 
             <div id="divPlot" class="col-xs-12">
                 <div id="divPlotLabel" class=" col-xs-12">
@@ -368,8 +404,8 @@ side-bar {
                   <div class="modal-header ">
                     
                         <!-- <p class="card-description" style="float: left;">Please Enable Device Service</p> -->
-
-               
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+                        <div id="paypal-button-container"></div>
 
                     <div class="card-body paps" action="./index.php" method="POST">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
@@ -864,17 +900,17 @@ side-bar {
             });
 
             $("#paypal").click(function(){
-                
+                console.log('green');
+                $("#dlgModal").show();
+                $(".para").hide();
+                initPayPalButton();
+                $("#paypal").attr('disabled', 'disabled');
             });
 
            $(document).keyup(function(e) {
             if (e.keyCode == 27) { // escape key maps to keycode `27`
                 ctlSidebar.hide();
                 }
-            });
-
-            $("#loginButton").click(function(){
-                loginWithMetamask();
             });
 
             $("#ETH").click(function(){
@@ -946,9 +982,9 @@ side-bar {
     });
 
     // ++++++++ Paypal Functions
-    function payMe(){
-        var container = $('<div>');
-            container.on('click', '#paypal', function initPayPalButton(){
+    
+     
+         function initPayPalButton(){
                 paypal.Buttons({
         style: {
           shape: 'rect',
@@ -984,8 +1020,8 @@ side-bar {
           console.log(err);
         }
       }).render('#paypal-button-container');
-            });
-    }
+            };
+    
 
             
 

@@ -59,7 +59,8 @@
 
 .btn-block {
     display: inline-block;
-    width: auto;
+    /* width: auto; */
+	margin-top: 10px;
 }
 
 .modal-footer {
@@ -70,6 +71,15 @@
 .paps{
 	display: none;
 }
+.parcel{
+	background-color: aliceblue;
+	margin-bottom: 20px;
+	text-align: center;
+	color: black;
+	padding: 10px;
+}
+
+
 
 
 
