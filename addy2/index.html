@@ -301,15 +301,10 @@ side-bar {
 
         <div class="card folder">
             <div class="card-body">
-                <div class="folder-icon">
-                  <!-- <i class="far fa-folder-open"></i> -->
-                </div>
                 <div class="folder-info">
-                    <!-- <a href="#">Space Location</a> -->
-
-                    <div class="card-body">
-                        
-                        <h5 class="card-title parcel">Parcel Info</h5>
+                    <h3 class="card-title">Parcel Data</h3>
+                    <div class="card-body c-b-parcel " id='xxb'>
+                        <h5 class="card-title parcel" id="parcel">Parcel Info</h5>
                         <p class="card-text">  View parcel details, current owner and price. All transactions are smart contract. </p>
                         <div class="tr-item">
                             <div class="tr-company-name">
@@ -318,12 +313,8 @@ side-bar {
                               </div>
                               <div class="tr-text">
                                 <h4>Owner</h4>
-                                <!-- <p>02 March</p> -->
                               </div>
                             </div>
-                            <!-- <div class="tr-rate">
-                              <p><span class="text-success">ETH Acc</span></p>
-                            </div> -->
                           </div>
                         <button class="btn btn-block btn-info m-t-md" id="ETH">Claim Parcel</button> 
                       </div>
@@ -332,63 +323,6 @@ side-bar {
                 </div>
             </div>
         </div>
-
-       
-
-        <!-- <div class="col-sm-6 col-md-3"> -->
-            <!-- <div class="card card-file-manager">
-              <div class="card-file-header">
-                
-                <img class="side-bar-img" src="../../../../images/badge.png" alt="">
-
-              </div>
-              <div class="card-body">
-                <h5 class="card-subtitle mb-2 text-muted">Title</h5>
-                <p class="card-text">Address</p>
-              </div>
-            </div> -->
-          <!-- </div> -->
-
-          <!-- <div class="col-4"> -->
-            <!-- <div class="card folder">
-              <div class="card-body">
-                  <div class="folder-icon">
-                   
-                  </div>
-        <div class="folder-info payment" id="payment">
-             <ul style="margin-top: px;">       
-            <li class="profile-about-list-buttons"> 
-                <button class="btn btn-block btn-info m-t-md" id="ETH">Ethereum</button> 
-                    <button class="btn btn-block btn-success m-t-md" type="submit" name="make_payment" id="mpesa">MPESA</button>
-                    <button class="btn btn-block btn-warning m-t-md" id="paypal" >Paypal</button> 
-                                       
-                </li>
-            </ul> 
-                     <span>14 files, 334mb</span> -->
-        <!-- </div>
-              </div>
-          </div>  -->
-          <!-- </div> -->
-
-      
-
-            <div id="divPlot" class="col-xs-12">
-                <div id="divPlotLabel" class=" col-xs-12">
-                    <!--<h4 id="lblPlot">Land Parcel Search</h4>-->
-                </div>
-
-                <div id="divPlotError" class="errorMsg col-xs-12"></div>
-
-                <table>
-                     <tr id="grrr"> </tr>
-                 </table>
-
-
-                <div class="" id="divPlotData"></div>
-            </div>
-
-            <div id="divPlotFilter" class="col-xs-12"> 
-            </div>
         </div>
         </div>
 
@@ -396,30 +330,25 @@ side-bar {
 
 
         <div id="mapdiv" class="col-md-12"></div> 
-
         <div id="dlgModal" class="modal">
+
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content ">
-
-                  <div class="modal-header ">
-                    
-                        <!-- <p class="card-description" style="float: left;">Please Enable Device Service</p> -->
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
-                        <div id="paypal-button-container"></div>
-
+                <div class="modal-header ">     
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+                <div id="paypal-button-container"></div>
                     <div class="card-body paps" action="./index.php" method="POST">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
                         <h5 class="card-title">Pay with Mpesa</h5>
                         <p class="card-description">Mpesa users in Kenya <code>&lt;Kenya&gt;</code> and <code>&lt;Uganda&gt;</code>.</p>
                         <div class="mb-3">
                             <label for="formGroupExampleInput" class="form-label">Amount</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" name="amount" placeholder="Enter Amount">
-                               
+                            <input type="text" class="form-control" id="formGroupExampleInput" name="amount" placeholder="Enter Amount">         
                         </div>
-                          <div class="mb-3">
+                        <div class="mb-3">
                             <label for="formGroupExampleInput2" class="form-label">Phone Number</label>
                             <input type="text" class="form-control" name="phone" placeholder="0700-000-000">
-                          </div>
+                        </div>
 
                           <button type="submit" name="submit" value="submit" class="btn btn-primary m-b-xs">Purchase Land</button>
                     </div>
@@ -505,7 +434,7 @@ side-bar {
                 ctlMouseposition = L.control.mousePosition().addTo(mymap);
 
                
-                ctlMeasure = L.control.polylineMeasure({position:'bottomright'}).addTo(mymap);
+                //ctlMeasure = L.control.polylineMeasure({position:'bottomright'}).addTo(mymap);
 
                 //   *********** Layer Initialization **********
 
@@ -784,18 +713,22 @@ side-bar {
                 function processLanduse (json, lyr){
                 var att = json.properties; 
 
-                
-
                 lyr.on('click', function (e){
-                    lyr.bindPopup("<img width='100' class='rounded' src='images/nft.png' alt='avatar'>",
-                        {
-                   permanent:true,
-                   direction:"left",
-                   className:"no-bg"
-                        }).openPopup().addTo(mymap); 
+                    lyr.bindPopup("<p>"+att.id+"</p>"
+                //        {
+                //    permanent:true,
+                //    direction:"left",
+                //    className:"no-bg"
+                //        }
+                        ).openPopup().addTo(mymap); 
 
                         //lyr.bindTooltip("<img width='200' class='rounded' src='images/nft.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
                     ctlSidebar.show();
+                    $('.c-b-parcel').show();
+                    var parcelNum = document.getElementById('parcel');
+                    parcelNum.textContent = ""+att.id+"";
+                    
+
                     if (lyr){
                         if(lyrSearch){
                             lyrSearch.remove();
@@ -811,12 +744,7 @@ side-bar {
                         mouseover: highlightDot,
                         mouseout: resetDotHighlight
                     });
-            
-          // lyr.bindTooltip("<img width='200' class='rounded' src='images/nft.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
-
                 }
-                
-
 
                 var markerDefault = {
                     color: 'white',

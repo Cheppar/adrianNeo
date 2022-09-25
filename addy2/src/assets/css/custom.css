@@ -73,12 +73,17 @@
 }
 .parcel{
 	background-color: aliceblue;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	text-align: center;
 	color: black;
 	padding: 10px;
 }
-
+.tr-item{
+	display: none;
+}
+.c-b-parcel{
+	display: none;
+}
 
 
 
