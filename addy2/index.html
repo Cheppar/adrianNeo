@@ -306,7 +306,7 @@ side-bar {
                     <div class="card-body c-b-parcel " id='xxb'>
                         <h5 class="card-title parcel" id="parcel">Parcel Info</h5>
                         <p class="card-text">  View parcel details, current owner and price. All transactions are smart contract. </p>
-                        <div class="tr-item">
+                        <div class="tr-item" id="owner">
                             <div class="tr-company-name">
                               <div class="tr-icon tr-card-icon tr-card-bg-primary text-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -451,7 +451,7 @@ side-bar {
 
                 mymap.on('zoomend', function(e) {
                     if (mymap.getZoom() <= 15){
-                         mymap.removeLayer(lyrLandUse);
+                         //mymap.removeLayer(lyrLandUse);
                         // mymap.addLayer(lyrSectors);
                         // mymap.addLayer(lyrClientLines);
                         // lyrEagleNests.bringToFront();
@@ -478,12 +478,8 @@ side-bar {
 
                 // lyrRiver = L.geoJSON.ajax('data/maimahiuriver.geojson').bindTooltip("County Boundary").addTo(mymap);
 
-                lyrLandUse = L.geoJSON.ajax('data/grid.geojson', {
-                    color: 'white',
-                    fillColor:'black',
-                    fillOpacity: 0.2,
-                    // opacity: 1,
-                     weight:1,
+                lyrLandUse = L.geoJSON.ajax('data/label_grid.geojson', {
+                   
                     style: styleLanduse, 
                     onEachFeature: processLanduse, 
                     //filter: fliterPlots
@@ -625,17 +621,6 @@ side-bar {
                 arLayersIDs.push(att.PLOT_NUMBE.toString());
             }
 
-           //      function testPlotTxtID(id){
-           //          if (arLayersIDs.indexOf(id)<0){
-           //          $("#divFindPlot").addClass("has-error");
-           //              $("#divPlotError").html("*** PLOT NOT FOUND");
-           //              $("#btnFindPlot").attr("disabled", true);
-           //              }else{
-           //              $("#divFindPlot").removeClass("has-error");
-           //              $("#divPlotError").html("");
-           //              $("#btnFindPlot").attr("disabled", false);
-           //          }
-           // }
 
                 $("#txtFindPlot").on('keyup paste', function(){
                     var id = $("#txtFindPlot").val();
@@ -645,97 +630,40 @@ side-bar {
 
                 function styleLanduse(json){
                 var att = json.properties;
-                switch(att.DESCR){
+                switch(att.owner){
 
-                    case '"Sales and Services (Wholesale facilities, Spot commercial, strip commercial, neighborhood shopping centers\/plazas). Excludes office facilities."':
+                    case 'available':
                         return {color:'#ffffa6' , fillColor:'#ffffa6'};
                         break;
 
-                    case 'Proposed public purpose':
-                        return {color:'#ffffa6'};
-                        break;
-
-                    case 'Public utility':
-                        return {color:'#3366ff'};
-                        break;
-
-
-                    case 'industry':
-                        return {color:'#e680ff'};
-                        break;
-
-                    case 'Commercial':
-                        return {color:'red', fillColor:'red'};
-                        break;
-
-                    case 'Transportation':
-                        return {color:'#cccccc'};
-                        break;
-
-                    case 'transportation 2':
-                        return {color:'#cccccc'};
-                        break;
-
-                    case 'Educational':
-                        return {color:'#ebcc80'};
-                        break;
-
-                    case 'Low Density Residential':
-                        return {color:'#ebe0cc'};
-                        break;
-
-                    case 'High Density Residential':
-                        return {color:'#ccb399'};
-                        break;
-
-                    case 'Medium Density Residential':
-                        return {color:'#e6ccb3'};
-                        break;
-
-                    case 'Proposed high density residential':
-                        return {color:'#ccb399'};
-                        break;
-
-                    case 'Market':
-                        return {color:'#ffffa6'};
-                        break;
-
-                    case 'Proposed recreation':
-                        return {color:'#73b373'};
-                        break;
-
-                    case 'Proposed commercial':
-                        return {color:'red'};
+                    case 'taken':
+                        return {color:'green'};
                         break;
                 }
             }
 
                 function processLanduse (json, lyr){
                 var att = json.properties; 
-
+            
                 lyr.on('click', function (e){
-                    lyr.bindPopup("<p>"+att.id+"</p>"
-                //        {
-                //    permanent:true,
-                //    direction:"left",
-                //    className:"no-bg"
-                //        }
-                        ).openPopup().addTo(mymap); 
-
-                        //lyr.bindTooltip("<img width='200' class='rounded' src='images/nft.png' alt='avatar'>", { permanent:false, direction:"center",className:"no-bg" }); 
+                    lyr.bindPopup("<p>"+att.id+"</p>").openPopup().addTo(mymap); 
                     ctlSidebar.show();
                     $('.c-b-parcel').show();
+
                     var parcelNum = document.getElementById('parcel');
                     parcelNum.textContent = ""+att.id+"";
-                    
 
+
+                    $('.tr-item').show();
+                    var ownerInfo = document.getElementById('owner');
+                    ownerInfo.textContent = ""+att.owner+"";
+                    
                     if (lyr){
                         if(lyrSearch){
                             lyrSearch.remove();
                         }
 
-                     lyrSearch = L.geoJSON(lyr.toGeoJSON(),{style:{color:'green ', weight:10, opacity:0.5}}).addTo(mymap);
-                    // ctlSidebar.setContent("<div class='twente'> <h4 class='text-center real' >Parcel Information</h4> <table><tr> <td><h6> Parcel</h6><td> <td>"+att.OBJECTID+"<td></tr><tr><td><h6>Land Use</h6><td> <td>"+att.LU+"<td></tr> <tr><td><h6>Plinth Area</h6><td> <td>"+att.Shape__Are+"<td></tr></table></div>");
+                    lyrSearch = L.geoJSON(lyr.toGeoJSON(),{style:{color:'green ', weight:10, opacity:0.5}}).addTo(mymap);
                     mymap.fitBounds(lyr.getBounds().pad(1));
                     }
                 });
@@ -761,17 +689,12 @@ side-bar {
                         fillColor: 'blue',
                         fillOpacity: '0.5'
 
-                        //lyrSearch = L.geoJSON(lyr.toGeoJSON(),{style:{color:'yellow ', weight:10, opacity:0.5}}).addTo(mymap);
-                        //fillOpacity: 0.75
+                    
                     };
 
                 function highlightDot(e) {
                         var lyr = e.target;
                         lyr.setStyle(markerHighlight);
-                        // if(markerDefault){
-                        //     markerDefault.remove();
-                        // }
-
                     };
 
                     function resetDotHighlight(e) {
