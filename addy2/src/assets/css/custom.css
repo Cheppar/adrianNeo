@@ -88,6 +88,11 @@
 	display: none;
 }
 
+.modal-dialog {
+    max-width: 379px;
+    margin: 1.75rem auto;
+}
+
 
 
 
