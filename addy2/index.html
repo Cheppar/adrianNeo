@@ -298,6 +298,23 @@ side-bar {
             </div>
         </div>
 
+        <!-- Ordinary Modal start -->
+        <!-- <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  Woohoo, you're reading this text in a modal!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div> -->
+    <!-- Ordinary Modal start -->
 
         <div class="card folder">
             <div class="card-body">
@@ -306,16 +323,21 @@ side-bar {
                     <div class="card-body c-b-parcel " id='xxb'>
                         <h5 class="card-title parcel" id="parcel">Parcel Info</h5>
                         <p class="card-text">  View parcel details, current owner and price. All transactions are smart contract. </p>
-                        <div class="tr-item" id="owner">
+                       
+                        <button type="button" class="btn btn-primary" id="owner">
+                            xxxxx <span class="badge bg-success">4</span>
+                          </button>
+                        
+                        <!-- <div class="tr-item" id="owner">
                             <div class="tr-company-name">
                               <div class="tr-icon tr-card-icon tr-card-bg-primary text-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                               </div>
-                              <div class="tr-text">
+                              <div class="tr-text">             
                                 <h4>Owner</h4>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
                         <button class="btn btn-block btn-info m-t-md" id="ETH">Claim Parcel</button> 
                       </div>
                   
@@ -336,6 +358,7 @@ side-bar {
                 <div class="modal-content ">
                 <div class="modal-header ">     
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
+                
                 <div id="paypal-button-container"></div>
                     <div class="card-body paps" action="./index.php" method="POST">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="float: right;"></button>
@@ -355,11 +378,12 @@ side-bar {
 
 
                   </div>
-                  <!-- <div class="modal-body">
-                      Woohoo, you're reading this text in a modal!
-                  </div> -->
+                  <div class="modal-body">
+                     To view owner please login or register your account. Powered by Metamask.
+                  </div>
                   <div class="modal-footer">
-                    <button class="btn btn-block btn-warning m-t-md para" id="btnLocate" >Enable Location</button>
+                    <button type="button" class="btn btn-warning m-b-xs">LOGIN</button>
+                    <!-- //<button type="button" class="btn btn-warning m-b-xs">Warning</button> -->
                   </div>
                 </div>
                 
@@ -663,6 +687,7 @@ side-bar {
                     $('#ETH').hide();
                     }else{
                         $('#ETH').show(); 
+                        $('#owner').hide();
                     }
                     
                     if (lyr){
@@ -772,6 +797,7 @@ side-bar {
             });
 
             $("#ETH").click(function(){
+                $("#dlgModal").show();
                 loginWithMetamask();
             });
 
