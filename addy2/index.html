@@ -5,7 +5,7 @@
         <title>MVP Adrian Neo</title>
         <link rel="icon" href="images/head-image.png">
         <link rel="stylesheet" href="src/leaflet.css">
-        <link rel="stylesheet" href="https://nakuplan.com/miami/src/fonts/leaflet.css">
+        <!-- <link rel="stylesheet" href="https://nakuplan.com/miami/src/fonts/leaflet.css"> -->
         <link rel="stylesheet" href="src/css/bootstrap.css">
         <link rel="stylesheet" href="src/plugins/L.Control.MousePosition.css">
         <link rel="stylesheet" href="src/plugins/L.Control.Sidebar.css">
@@ -580,23 +580,23 @@
 
        
 
-            mymap.on('keypress', function (e) {
-                if (e.original.Event.key == "l") {
-                    mymap.locate();
-                }
-            });
+            // mymap.on('keypress', function (e) {
+            //     if (e.original.Event.key == "l") {
+            //         mymap.locate();
+            //     }
+            // });
 
-            mymap.on('locationfound', function (e) {
-                console.log(e);
-                L.circleMarker(e.latlng).addTo(mymap);
-                mymap.setView(e.latlng, 14);
-            });
+            // mymap.on('locationfound', function (e) {
+            //     console.log(e);
+            //     L.circleMarker(e.latlng).addTo(mymap);
+            //     mymap.setView(e.latlng, 14);
+            // });
 
-            mymap.on('locationerror', function (e) {
-                console.log(e);
-                alert("Location was not found.");
+            // mymap.on('locationerror', function (e) {
+            //     console.log(e);
+            //     alert("Location was not found.");
 
-            });
+            // });
 
             // ************* Ethereum functions ***************
 
