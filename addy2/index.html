@@ -654,9 +654,16 @@ side-bar {
                     parcelNum.textContent = ""+att.id+"";
 
 
-                    $('.tr-item').show();
+                    $('#owner').show();
                     var ownerInfo = document.getElementById('owner');
                     ownerInfo.textContent = ""+att.owner+"";
+
+                   
+                    if(att.owner === 'taken'){
+                    $('#ETH').hide();
+                    }else{
+                        $('#ETH').show(); 
+                    }
                     
                     if (lyr){
                         if(lyrSearch){
@@ -668,10 +675,10 @@ side-bar {
                     }
                 });
 
-                lyr.on({
-                        mouseover: highlightDot,
-                        mouseout: resetDotHighlight
-                    });
+                // lyr.on({
+                //         mouseover: highlightDot,
+                //         mouseout: resetDotHighlight
+                //     });
                 }
 
                 var markerDefault = {
