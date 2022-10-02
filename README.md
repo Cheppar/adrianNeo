@@ -24,7 +24,10 @@ You can npm it from this github repository.
 
 ##### Uploading to server
 Once uploaded.
-Create a simple database name: eth pass: 234290
-Run the SQL file sent to you.
+Switch on PostGIS extension in your maon Cpanel interface.
+Create a simple database in PostgreSQL name: eth pass: 234290
+
+Run the SQL file sent to you in your postgreSQL database..
+
 Regards....
 Godfrey Chidi Ejiofor.
