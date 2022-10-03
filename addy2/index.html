@@ -286,13 +286,14 @@
                 fgpDrawnItems.addTo(mymap);
 
                 mymap.on('zoomend', function(e) {
-                    if (mymap.getZoom() <= 15){
-                         
+                    if (mymap.getZoom() <= 17){
+                        lyrLandUse.removeLayer();
+                        console.log('rev');
                     }else{
 
                     }
                     if(mymap.getZoom() >= 16){
-                          mymap.addLayer(lyrLandUse);
+                          //mymap.addLayer(lyrLandUse);
                        
 
                     }else{
