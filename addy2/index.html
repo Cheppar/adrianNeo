@@ -197,7 +197,7 @@
                      To view owner please login or register your account. Powered by Metamask.
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-warning m-b-xs">LOGIN</button>
+                    <button type="button" class="btn btn-warning m-b-xs" id="login">LOGIN</button>
                     <!-- //<button type="button" class="btn btn-warning m-b-xs">Warning</button> -->
                   </div>
                 </div>
@@ -300,7 +300,8 @@
                        
                     }
                 });
- 
+
+
                 lyrLandUse = L.geoJSON.ajax('data/label_grid.geojson', { 
                     style: styleLanduse, 
                     onEachFeature: processLanduse, 
@@ -466,7 +467,6 @@
                     var parcelNum = document.getElementById('parcel');
                     parcelNum.textContent = ""+att.id+"";
 
-
                     $('#owner').show();
                     var ownerInfo = document.getElementById('owner');
                     ownerInfo.textContent = ""+att.owner+"";
@@ -487,6 +487,8 @@
                     lyrSearch = L.geoJSON(lyr.toGeoJSON(),{style:{color:'green ', weight:10, opacity:0.5}}).addTo(mymap);
                     mymap.fitBounds(lyr.getBounds().pad(1));
                     }
+                    var cookieValue = document.getElementById('parcel').innerText;
+                        alert(cookieValue);
                 });
                 }
 
@@ -564,8 +566,9 @@
                 }
             });
 
-            $("#ETH").click(function(){
+            $("#ETH, #login").click(function(){
                 $("#dlgModal").show();
+                alert("login");
                 loginWithMetamask();
             });
 
