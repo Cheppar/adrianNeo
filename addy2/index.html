@@ -274,7 +274,7 @@
                 lyrOSM = L.tileLayer.provider('OpenStreetMap.Mapnik');
                 lyrTopo = L.tileLayer.provider('OpenTopoMap');
                 lyrImagery = L.tileLayer.provider('Esri.WorldImagery');
-                lyrOutdoors = L.tileLayer.provider('Thunderforest.Outdoors');
+                // lyrOutdoors = L.tileLayer.provider('Thunderforest.Outdoors');
                 lyrWatercolor = L.tileLayer.provider('Stamen.Watercolor');
                 var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{ maxZoom: 20, subdomains:['mt0','mt1','mt2','mt3']});
                 mymap.addLayer(googleStreets);
@@ -566,8 +566,6 @@
             $("#ETH").click(function(){
                  loginWithMetamask();
             });
-
-           
 
             $("#mpesa").click(function(){
                 $("#dlgModal").show();
